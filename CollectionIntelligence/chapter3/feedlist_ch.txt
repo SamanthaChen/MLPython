@@ -1,0 +1,13 @@
+http://www.importnew.com/feed
+http://freemind.pluskid.org/rss.xml
+http://blog.pluskid.org/?feed=rss2
+http://blog.csdn.net/abcjennifer/rss/list
+https://www.v2ex.com/feed/tab/tech.xml
+http://top.jobbole.com/tag/machine-learning/feed/
+http://coolshell.cn/feed
+http://feeds.feedburner.com/ruanyifeng
+http://www.liaoxuefeng.com/feed
+http://top.jobbole.com/tag/algorithm/feed/
+http://blog.sina.com.cn/rss/1286528122.xml
+http://feeds.appinn.com/appinns/
+http://feeds.feedburner.com/zhihu-daily
