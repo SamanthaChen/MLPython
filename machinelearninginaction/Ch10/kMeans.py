@@ -137,3 +137,7 @@ def clusterClubs(numClust=5):
         ax1.scatter(ptsInCurrCluster[:,0].flatten().A[0], ptsInCurrCluster[:,1].flatten().A[0], marker=markerStyle, s=90)
     ax1.scatter(myCentroids[:,0].flatten().A[0], myCentroids[:,1].flatten().A[0], marker='+', s=300)
     plt.show()
+
+if __name__=='__main__':
+    dataMat=mat(loadDataSet('testSet.txt'))
+    print kMeans(dataMat,4)
