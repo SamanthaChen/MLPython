@@ -1,3 +1,4 @@
+#coding=utf-8
 '''
 Created on Nov 28, 2010
 Adaboost is short for Adaptive Boosting
@@ -123,3 +124,12 @@ def plotROC(predStrengths, classLabels):
     ax.axis([0,1,0,1])
     plt.show()
     print "the Area Under the Curve is: ",ySum*xStep
+
+
+#main函数
+if __name__=='__main__':
+    dataMat, classLabels = loadSimpData()
+    #bestStump,minError,bestClassEst = buildStump(dataMat,classLabels,D)
+    #print bestStump,minError,bestClassEst
+    classifierArray=adaBoostTrainDS(dataMat,classLabels,9)
+    print classifierArray
