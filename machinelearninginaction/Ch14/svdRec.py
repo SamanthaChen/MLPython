@@ -108,3 +108,13 @@ def imgCompress(numSV=3, thresh=0.8):
     reconMat = U[:,:numSV]*SigRecon*VT[:numSV,:]
     print "****reconstructed matrix using %d singular values******" % numSV
     printMat(reconMat, thresh)
+
+if __name__=='__main__':
+    data = loadExData();
+    U,Sigma,VT = linalg.svd(data)
+    print Sigma
+
+    sigma2 = mat([[Sigma[0],0],[0,Sigma[1]]])
+    reconData = U[:,:2]*sigma2*VT[:2,:]
+    print data
+    print reconData
