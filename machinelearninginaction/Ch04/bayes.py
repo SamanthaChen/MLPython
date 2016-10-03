@@ -1,3 +1,4 @@
+#coding=utf-8
 '''
 Created on Oct 19, 2010
 
@@ -169,3 +170,20 @@ def getTopWords(ny,sf):
     print "NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**NY**"
     for item in sortedNY:
         print item[0]
+
+
+if __name__=='__main__':
+    # testingNB()
+    # rate=0.0
+    # for i in range(1,21):
+    #     r=spamTest2()
+    #     rate+=r
+    # print '平均错误率：%.4f' %(rate/20)
+
+    #RSS
+    import feedparser
+    ny=feedparser.parse('http://newyork.craiglist.org/stp/index.rss')
+    sf=feedparser.parse('http://sfbay.craigslist.org/stp/index.rss')
+    # vocabList,pSF,pNY=localWords(ny,sf)
+    # vocabList,pSF,pNY=localWords(ny,sf)
+    getTopWords(ny,sf)

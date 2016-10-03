@@ -90,12 +90,63 @@ def creatTree(dataSet, labels):
     bestFeatLabel = labels[bestFeat]
 
     myTree = {bestFeatLabel:{}}  #树的跟是最好的划分特征的标签
-    del(labels[bestFeat]) #获得除去当前最好的划分特征后的特征列表
+    #del(labels[bestFeat]) #获得除去当前最好的划分特征后的特征列表
     featValue = [example[bestFeat] for example in dataSet]
     uniqueVals = set(featValue)
     for value in uniqueVals:
         subLabels=labels[:]#深拷贝，防止修改原对象
+        del(subLabels[bestFeat]) #获得除去当前最好的划分特征后的特征列表
         myTree[bestFeatLabel][value]=creatTree(splitDataSet(dataSet,bestFeat,value),subLabels) #递归的创建树
 
     return myTree
 
+def classify(inputTree,featLabels,testVec):
+    '''
+    分类
+    :param inputTree:
+    :param featLabels:
+    :param testVec:
+    :return:
+    '''
+    firstStr = inputTree.keys()[0]
+    # print firstStr
+    secondDict = inputTree[firstStr]
+    # print featLabels
+    featIndex = featLabels.index(firstStr)
+    # print featIndex
+    key = testVec[featIndex]
+    valueOfFeat = secondDict[key]
+    if isinstance(valueOfFeat, dict):
+        classLabel = classify(valueOfFeat, featLabels, testVec)
+    else: classLabel = valueOfFeat
+    return classLabel
+
+#####使用pickle存储决策树
+def storeTree(inputTree,fileName):
+    import pickle
+    fw=open(fileName,'w')
+    pickle.dump(inputTree,fw)
+    fw.close()
+
+def grabTree(fileName):
+    import pickle
+    fr=open(fileName)
+    return pickle.load(fr)
+
+if __name__=='__main__':
+    # myDat,labels=createDataSet()
+    # # print labels
+    # myTree=creatTree(myDat,labels)
+    # print classify(myTree,labels,[1,1])
+
+    #建树并且序列化
+    # fr=open('lenses.txt')
+    # lenses=[inst.strip().split('\t') for inst in fr.readlines()]
+    # lensesLabels=['age','prescript','astigmatic','tearRate']
+    # lensesTree=creatTree(lenses,lensesLabels)
+    # storeTree(lensesTree,'lensesTree.txt')
+
+    #反序列化树
+    tree=grabTree('lensesTree.txt')
+    lensesLabels=['age','prescript','astigmatic','tearRate']
+    print classify(tree,lensesLabels,['presbyopic	hyper','yes','normal'])

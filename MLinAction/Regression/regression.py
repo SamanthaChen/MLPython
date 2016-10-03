@@ -88,7 +88,60 @@ def ridgeTest(xArr,yArr):
         wMat[i,:]=ws.T
     return wMat
 
+#Lasso回归
+def stageWise(xArr,yArr,eps=0.01,numIt=100):
+    xMat=mat(xArr)
+    yMat=mat(yArr).T
+    #数据标准化，满足0均值和单位方差
+    yMean=mean(yMat,0)
+    yMat=yMat-yMean
+    xMat=regularize(xMat)
+    m,n=shape(xMat)
+    returnMat=zeros((numIt,n)) #记录每一次迭代的w
 
+    ws=zeros((n,1))
+    wsTest=ws.copy()
+    wsMax=ws.copy()
+
+    for i in range(numIt):
+        print ws.T
+        lowestError=inf
+        for j in range(n):
+            for sign in [-1,1]:
+                wsTest=ws.copy()
+                wsTest[j]+=eps*sign
+                yTest=xMat*wsTest
+                rssE=rssError(yMat.A,yTest.A) #计算平方误差和
+                if rssE<lowestError:
+                    lowestError=rssE
+                    wsMax=wsTest
+        ws=wsMax.copy()
+        returnMat[i,:]=ws.T
+    return returnMat
+
+
+
+
+def regularize(xMat):#regularize by columns
+    '''
+    对矩阵进行
+    :param xMat:
+    :return:
+    '''
+    inMat = xMat.copy()
+    inMeans = mean(inMat,0)   #calc mean then subtract it off 计算均值
+    inVar = var(inMat,0)      #calc variance of Xi then divide by it 计算方差
+    inMat = (inMat - inMeans)/inVar #（x-均值）/方差
+    return inMat
+
+def rssError(yArr,yHatArr): #yArr and yHatArr both need to be arrays
+    '''
+    计算平方误差和
+    :param yArr:
+    :param yHatArr:
+    :return:
+    '''
+    return ((yArr-yHatArr)**2).sum()
 
 #main函数
 if __name__=='__main__':

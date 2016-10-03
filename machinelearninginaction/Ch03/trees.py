@@ -103,3 +103,8 @@ def grabTree(filename):
     fr = open(filename)
     return pickle.load(fr)
     
+if __name__=='__main__':
+    myDat,labels=createDataSet()
+    myTree=createTree(myDat,labels)
+    print myTree
+    print classify(myTree,labels,[0,1])
