@@ -7,6 +7,8 @@ http://scikit-learn.org/dev/auto_examples/applications/face_recognition.html
 ## original shape of images: 50, 37
 """
 
+
+
 import numpy as np
 from sklearn import cross_val, datasets, decomposition, svm
 
